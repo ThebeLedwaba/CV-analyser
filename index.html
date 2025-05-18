@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Resume Analyzer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-file-alt"></i> Advanced Resume Analyzer</h1>
+      <p class="subtitle">Get detailed feedback on how well your resume matches a job description</p>
+    </header>
+    
+    <div class="input-section">
+      <div class="input-group">
+        <label for="resume"><i class="fas fa-user-tie"></i> Paste Your Resume:</label>
+        <textarea id="resume" placeholder="Paste your resume text here... (or upload below)"></textarea>
+        <div class="file-upload">
+          <input type="file" id="resume-upload" accept=".pdf,.doc,.docx,.txt">
+          <button class="upload-btn"><i class="fas fa-upload"></i> Upload Resume</button>
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <label for="job"><i class="fas fa-briefcase"></i> Paste Job Description:</label>
+        <textarea id="job" placeholder="Paste the job description here..."></textarea>
+      </div>
+    </div>
+    
+    <div class="options">
+      <div class="option-group">
+        <label><input type="checkbox" id="check-experience" checked> Match Experience Level</label>
+        <label><input type="checkbox" id="check-skills" checked> Match Skills</label>
+        <label><input type="checkbox" id="check-education" checked> Match Education</label>
+      </div>
+      <div class="option-group">
+        <label for="weighting">Keyword Weighting:</label>
+        <select id="weighting">
+          <option value="balanced">Balanced</option>
+          <option value="skills-heavy">Skills Heavy</option>
+          <option value="experience-heavy">Experience Heavy</option>
+        </select>
+      </div>
+    </div>
+    
+    <button class="analyze-btn" onclick="analyze()"><i class="fas fa-chart-bar"></i> Analyze Resume</button>
+    
+    <div class="progress-container" id="progress-container" style="display: none;">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    
+    <div class="results" id="result" style="display: none;">
+      <div class="score-card">
+        <h2>Match Score: <span id="score">0</span>%</h2>
+        <div class="score-bar">
+          <div class="score-fill" id="score-fill"></div>
+        </div>
+        <div class="score-details">
+          <div><i class="fas fa-check-circle"></i> <span id="matched-count">0</span> Matches</div>
+          <div><i class="fas fa-exclamation-circle"></i> <span id="missing-count">0</span> Missing</div>
+        </div>
+      </div>
+      
+      <div class="result-tabs">
+        <button class="tab-btn active" onclick="openTab('matched')">Matched Keywords</button>
+        <button class="tab-btn" onclick="openTab('missing')">Missing Keywords</button>
+        <button class="tab-btn" onclick="openTab('suggestions')">Improvement Suggestions</button>
+      </div>
+      
+      <div class="tab-content active" id="matched-tab">
+        <div class="keyword-cloud" id="matched"></div>
+      </div>
+      
+      <div class="tab-content" id="missing-tab">
+        <div class="keyword-cloud" id="missing"></div>
+      </div>
+      
+      <div class="tab-content" id="suggestions-tab">
+        <div id="suggestions"></div>
+      </div>
+      
+      <div class="detailed-analysis">
+        <h3><i class="fas fa-chart-pie"></i> Detailed Analysis</h3>
+        <div class="analysis-grid">
+          <div class="analysis-card">
+            <h4>Skills Match</h4>
+            <div class="meter">
+              <div class="meter-fill" id="skills-meter"></div>
+            </div>
+            <p id="skills-analysis"></p>
+          </div>
+          <div class="analysis-card">
+            <h4>Experience Match</h4>
+            <div class="meter">
+              <div class="meter-fill" id="exp-meter"></div>
+            </div>
+            <p id="exp-analysis"></p>
+          </div>
+          <div class="analysis-card">
+            <h4>Education Match</h4>
+            <div class="meter">
+              <div class="meter-fill" id="edu-meter"></div>
+            </div>
+            <p id="edu-analysis"></p>
+          </div>
+          <div class="analysis-card">
+            <h4>Keyword Density</h4>
+            <div class="meter">
+              <div class="meter-fill" id="density-meter"></div>
+            </div>
+            <p id="density-analysis"></p>
+          </div>
+        </div>
+      </div>
+      
+      <button class="export-btn" onclick="exportResults()"><i class="fas fa-download"></i> Export Analysis Report</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
